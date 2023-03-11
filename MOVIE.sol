@@ -2,6 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NuovoCinemaPurgatorio is ERC721, Ownable {
@@ -12,10 +13,9 @@ contract NuovoCinemaPurgatorio is ERC721, Ownable {
     Counters.Counter private tickets;
     uint256 public price = 15 ether;
     uint256 public onAir = 100000000000000;
-    uint256 public open = false;
-    uint256 public 
+    bool public open = false;
  
-    constructor() ERC721("𝙤𝙙𝙜𝙚𝙡𝙤𝙣", "MOVIE") {}
+    constructor() ERC721("odgelon", "MOVIE") {}
 
     function _baseURI() internal pure override returns (string memory) {
         return "ipfs://QmNz8smih96xfUAVAuKs6chcVAjxx3zqW9TMLifccMGfnN";
