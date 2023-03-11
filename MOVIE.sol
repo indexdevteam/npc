@@ -10,14 +10,15 @@ contract NuovoCinemaPurgatorio is ERC721, Ownable {
 
     uint256 public seats = 0;
     Counters.Counter private tickets;
-    uint256 public price = 15;
+    uint256 public price = 15 ether;
     uint256 public onAir = 100000000000000;
     uint256 public open = false;
+    uint256 public 
  
     constructor() ERC721("𝙤𝙙𝙜𝙚𝙡𝙤𝙣", "MOVIE") {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://______________________________________________";
+        return "ipfs://QmNz8smih96xfUAVAuKs6chcVAjxx3zqW9TMLifccMGfnN";
     }
 
     function buyTicket() public payable {
@@ -28,7 +29,9 @@ contract NuovoCinemaPurgatorio is ERC721, Ownable {
 	require(open);
 	require(seats < 25);
 	require(onAir >= block.number + 10000);
-	require(msg.value >= price);
+	if (msg.sender != owner()) {
+	    require(msg.value >= price);
+	}
 	tickets.increment();
 	seats +=1;
 	if (seats == 25) {
@@ -48,6 +51,10 @@ contract NuovoCinemaPurgatorio is ERC721, Ownable {
 
     function setSeats(uint256 _seats) public onlyOwner {
         seats = _seats;
+    }
+
+    function setPrice(uint256 _price) public onlyOwner {
+        price = _price;
     }
 
     function withdraw() public onlyOwner {
